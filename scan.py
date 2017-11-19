@@ -7,7 +7,7 @@
 from flask.ext.script import Manager
 from app import app, db, lm
 from app.models import Movie, Subtitle
-import os, glob, formic, urllib2, base64, json
+import os, glob, formic, urllib, base64, json
 from config import CONVERT_CORES, VIDEO_FOLDER, BROKER_URL, CELERY_RESULT_BACKEND, SUBTITLES_LANG_PRIORITY
 from celery import Celery
 import shlex
