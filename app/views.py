@@ -3,12 +3,12 @@ from flask import render_template, flash, redirect, url_for, session, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from sqlalchemy import exc
 from app import app, db, lm
-from forms import LoginForm, SignupForm, ModifyForm, PasswordForm
-from models import User, Movie
+from .forms import LoginForm, SignupForm, ModifyForm, PasswordForm
+from .models import User, Movie
 from functools import wraps
 from flask.ext.wtf import Form
 from wtforms import TextField
-import os, glob, formic, urllib2, base64, json, zlib
+import os, glob, formic, urllib, base64, json, zlib
 from config import CONVERT_CORES, VIDEO_FOLDER, ROTTEN_KEY
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -178,8 +178,8 @@ def modify():
         movie = form.name.data
         # Get movie data and put it to our database
         rotten_url = 'http://api.rottentomatoes.com/api/public/v1.0/movies/{!s}.json?apikey={!s}'.format(movie, ROTTEN_KEY)
-        req = urllib2.Request(rotten_url, headers={'Accept-Encoding': 'gzip, identity'})
-        conn = urllib2.urlopen(req)
+        req = urllib.Request(rotten_url, headers={'Accept-Encoding': 'gzip, identity'})
+        conn = urllib.urlopen(req)
         movie = conn.read()
         try:
             if conn.headers['content-encoding'] == 'gzip':
