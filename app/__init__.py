@@ -10,3 +10,8 @@ lm.init_app(app)
 lm.login_view = 'login'
 
 from app import views, models
+from app.models import User, Movie, Subtitle
+
+db.create_all()
+db.session.commit()
+

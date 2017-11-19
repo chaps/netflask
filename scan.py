@@ -119,13 +119,15 @@ def scan_folders():
     # Check for mp4, mkv, avi files in video folder
     fileset = formic.FileSet(include=["*.mp4", "*.mkv", "*.avi"], directory=VIDEO_FOLDER)
     # Loop found files
-    for file_name in fileset:
+    for file_name in fileset.files():
+        file_name = os.path.join(fileset.get_directory(), file_name[1])
         # Return relative path of found files
         rec_name = file_name.replace(VIDEO_FOLDER, '')
         rel_name = rec_name
         rec_name = rec_name.replace('.avi', '.mp4')
         # See if path found in database, if not: continue
-        if Movie.query.filter_by(url = rec_name).first() < 1:
+        if Movie.query.filter_by(url = rec_name).first() is None:
+            # or Movie.query.filter_by(url = rec_name).first() < 1:
             # Check if filesize is different after 5 second, aka not completely uploaded yet
             size = os.path.getsize(file_name)
             time.sleep(5)
