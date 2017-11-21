@@ -66,7 +66,7 @@ def sub2srt(subtitle):
 def get_subtitle(id, file_name):
     """Fetches subtitles automatically using frameboise, then converts them to srt with subconvert"""
     # Let's loop through our subtitle languages from config.py
-    for lang, value in SUBTITLES_LANG_PRIORITY.iteritems():
+    for lang, value in SUBTITLES_LANG_PRIORITY.items():
         # Let Framboise fetch the files one by one:
         command = 'framboise "{!s}" -l {!s} --no-recursive'.format(file_name, lang)
         # Let's run the command and store the output
